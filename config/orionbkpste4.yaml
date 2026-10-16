@@ -1,0 +1,525 @@
+app:
+  name: ORION Belt Enterprise
+  assistant_name: Orianbelt
+  version: 2.6.1-recent-documents
+server:
+  host: 127.0.0.1
+  port: 5050
+  socket_idle_seconds: 900
+  max_request_bytes: 131072
+  tls:
+    cert: ''
+    key: ''
+client:
+  host: 127.0.0.1
+  port: 5050
+  tls_ca: ''
+  connect_timeout_seconds: 3
+  reconnect_seconds: 4
+ui:
+  theme: Midnight
+  width: 1050
+  height: 720
+  minimize_to_tray: false
+  sql_panel:
+    enabled: true
+    show_query_before_execution: true
+    show_execution_status: true
+    show_results_table: true
+    show_database_alias: true
+  reports_panel:
+    enabled: true
+    show_report_source: true
+    show_generated_sql: true
+    show_preview: true
+    show_export_path: true
+    open_report_after_generation: false
+  discovery_status:
+    enabled: true
+    show_last_knowledge_sync: true
+    show_last_schema_scan: true
+    show_database_connection_status: true
+    show_documented_vs_verified: true
+    manual_refresh_button: true
+features:
+  knowledge: true
+  live_database: true
+  chat_history: true
+  local_model: true
+  excel_reports: true
+  document_table_import: true
+  voice: true
+  browser: false
+  lan_transfer: false
+  background_monitoring: true
+  continuous_knowledge_updates: true
+  scheduled_schema_discovery: true
+ai:
+  mode: hybrid
+  general_source: qwen3
+  company_source: knowledge
+  database_source: live_database
+  report_source: reports
+  missing_company_answer: not_found
+  show_answer_source: true
+  company_prompt: Answer company-specific questions only from retrieved, synchronized
+    company documents. Cite source filenames. If the documents do not establish the
+    answer, say the information is unavailable. Do not invent company policies, regulations,
+    database records or credentials.
+  general_prompt: Answer general-knowledge questions using the local Qwen3 model.
+    Do not present general knowledge as verified company information. If uncertain,
+    say so.
+routing:
+  enabled: true
+  general_questions: qwen3
+  company_questions: knowledge
+  live_database_requests: database
+  prefer_company_knowledge_for_internal_questions: true
+  require_verified_connection_for_live_records: true
+  ask_database_name_if_missing: true
+  report_requests: reports
+  ask_report_source_if_ambiguous: true
+  prefer_live_database_for_actual_records: true
+  company_keywords:
+  - our company
+  - company policy
+  - company rules
+  - company regulations
+  - leave policy
+  - salary policy
+  - internal procedure
+  - employee handbook
+knowledge:
+  folder: knowledge
+  index_file: data/knowledge_index.json
+  max_file_bytes: 5000000
+  max_files: 10000
+  chunk_chars: 1200
+  chunk_overlap: 150
+  max_results: 3
+  answer_mode: extractive
+  auto_sync_on_start: true
+  sync_interval_seconds: 3600
+  recent_queries_sync_on_demand: true
+  show_sources: true
+  database_catalog_from_documents: true
+  supported_extensions:
+  - .txt
+  - .md
+  - .pdf
+  - .docx
+  max_pdf_pages: 40
+  resume_access_roles:
+  - admin
+  - analyst
+  report_definition_folders:
+  - knowledge/reports
+  extract_report_table_metadata: true
+  redact_connection_secrets_before_indexing: true
+  import_document_passwords_to_credential_store: false
+  dynamic_discovery:
+    enabled: true
+    recursive_scan: true
+    include_globs:
+    - '**/*.txt'
+    - '**/*.md'
+    - '**/*.pdf'
+    - '**/*.docx'
+    - '*.txt'
+    - '*.md'
+    - '*.pdf'
+    - '*.docx'
+    ignore_globs:
+    - '**/~$*'
+    - '**/.git/**'
+    - '**/node_modules/**'
+    - '**/__pycache__/**'
+    incremental_hash_sync: true
+    remove_deleted_sources_from_index: true
+    allow_multiple_databases_per_file: true
+    recognize_database_name_headers: true
+    recognize_database_engine_headers: true
+    recognize_markdown_table_sections: true
+    parse_markdown_column_tables: true
+    parse_primary_foreign_unique_keys: true
+    parse_column_types_nullable_defaults: true
+    track_source_filename_and_section: true
+    merge_schema_fragments_by_database: true
+    conflict_strategy: flag_for_verification
+    refresh_on_manual_sync: true
+    do_not_treat_documented_schema_as_live_data: true
+  index_update_mode: atomic
+  schema_catalog_file: data/discovered_schema_catalog.json
+  sync_status_file: data/knowledge_sync_status.json
+  source_priority: verified_live_schema_for_sql_documentation_for_discovery
+  do_not_train_model_weights: true
+model:
+  enabled: true
+  backend: llama_cpp
+  path: models/Qwen3-4B-Q4_K_M.gguf
+  context_size: 2048
+  gpu_layers: 0
+  threads: 4
+  max_tokens: 256
+  temperature: 0.1
+  top_p: 0.9
+  fallback_to_documents_on_error: true
+  system_prompt: Answer the question using only the supplied company documentation.
+    Cite filenames. If the documentation does not support the answer, say it is unavailable.
+    Never claim to have queried a live database.
+database:
+  allowed_backends:
+  - sqlite
+  - postgresql
+  - sqlserver
+  connect_timeout_seconds: 10
+  query_timeout_seconds: 60
+  max_preview_rows: 100
+  max_tables: 1000
+  allow_live_connection_roles:
+  - admin
+  - analyst
+  sqlserver_auth_modes:
+  - sql
+  - windows
+  odbc_driver: ODBC Driver 18 for SQL Server
+  multiple_connections_enabled: true
+  list_available_databases: true
+  show_server_names: true
+  show_recent_databases_first: true
+  recent_database_history_file: data/recent_databases.json
+  discover_from_approved_documents: true
+  select_database_by_name: true
+  auto_connect_with_saved_credentials: true
+  prompt_for_missing_password: true
+  verify_connection_before_queries: true
+  discover_schema_on_connect: true
+  connection_profiles_source: approved_documents_and_secure_registry
+  ask_database_name_if_missing: true
+  auto_connect_after_selection: true
+  credential_store:
+    provider: windows_credential_manager
+    never_store_passwords_in_yaml: true
+    never_expose_passwords_to_model: true
+    never_log_passwords: true
+    password_prompt_masked: true
+  profiles: []
+  dynamic_catalog:
+    enabled: true
+    source: synchronized_txt_md_and_approved_profiles
+    database_names: auto
+    table_names: auto
+    column_names: auto
+    server_names: from_approved_connection_metadata_only
+    allow_multiple_databases_in_one_document: true
+    show_documented_without_connection: true
+    show_connection_status: true
+    do_not_guess_missing_host_port_username: true
+    prompt_for_missing_connection_details: true
+    refresh_live_schema_on_connect: true
+    verify_documented_tables_against_live_schema: true
+    recent_history_file: data/recent_databases.json
+    refresh_catalog_after_knowledge_sync: true
+  schema_discovery:
+    enabled: true
+    on_server_start: true
+    on_connect: true
+    on_demand_if_stale: true
+    interval_seconds: 3600
+    metadata_only: true
+    include_views: true
+    include_tables: true
+    include_columns: true
+    include_primary_keys: true
+    include_foreign_keys: true
+    include_row_counts: false
+    scan_only_approved_accessible_connections: true
+    use_least_privilege_metadata_permissions: true
+    never_enumerate_unapproved_servers: true
+    on_connection_failure: keep_last_verified_snapshot_mark_stale
+    compare_with_previous_snapshot: true
+    track_added_removed_changed_tables: true
+    refresh_report_catalog_after_scan: true
+    schema_snapshot_file: data/live_schema_snapshots.json
+    status_file: data/schema_discovery_status.json
+sql:
+  enabled: true
+  generate_from_natural_language: false
+  inspect_live_schema_before_generation: true
+  dialect_from_connected_backend: true
+  display_generated_query: true
+  auto_execute_read_queries: true
+  require_confirmation_for_writes: true
+  enforce_server_side_validation: true
+  single_statement_only: true
+  enforce_role_permissions: true
+  max_result_rows: 100
+  query_timeout_seconds: 60
+  audit_queries: true
+  log_result_rows: false
+  allowed_operations:
+    select: true
+    insert: false
+    update: false
+    create_table: false
+    delete: false
+    drop: false
+    truncate: false
+    alter: false
+    merge: false
+    execute: false
+    grant: false
+    revoke: false
+security:
+  users_file: data/users.sqlite
+  history_file: data/chat_history.sqlite
+  session_minutes: 240
+  max_login_attempts: 5
+  login_window_seconds: 300
+  require_authenticated_database_access: true
+  redact_credentials_in_logs: true
+  exclude_credentials_from_chat_history: true
+logging:
+  directory: logs
+  events_file: events.jsonl
+  errors_file: errors.log
+  max_bytes: 5000000
+  backup_count: 5
+  log_chat_text: false
+  log_answer_text: false
+  log_db_rows: false
+  log_sql_statements: true
+  log_report_metadata: true
+  log_report_rows: false
+  log_database_connection_events: true
+  log_query_duration: true
+  redact_credentials: true
+response:
+  style: concise
+  default_max_sentences: 2
+  default_max_words: 60
+  expand_only_when_requested: true
+  structured_json_before_chat: true
+  schema_version: '1.0'
+  default_presentation: text
+  json_on_explicit_request: true
+  show_sources: true
+reports:
+  enabled: true
+  trigger_intents:
+  - generate_report
+  - create_excel_report
+  - export_table
+  - download_report
+  default_format: xlsx
+  allowed_formats:
+  - xlsx
+  output_directory: reports/generated
+  filename_template: '{database}_{table}_{timestamp}.xlsx'
+  prevent_path_traversal: true
+  overwrite_existing: false
+  show_preview_in_chat: true
+  preview_rows: 20
+  return_download_path: true
+  require_authenticated_user: true
+  allow_roles:
+  - admin
+  - analyst
+  include_metadata_sheet: true
+  metadata_fields:
+  - report_title
+  - generated_at
+  - data_source
+  - database
+  - table
+  - filters
+  - row_count
+  - source_documents
+  sources:
+    supported_document_formats:
+    - txt
+    - md
+    approved_document_folders:
+    - knowledge/reports
+    - knowledge
+    document_tables:
+      enabled: true
+      allow_markdown_tables: true
+      allow_delimited_txt: true
+      txt_delimiters:
+      - comma
+      - tab
+      - pipe
+      require_column_headers: true
+      reject_unparseable_tables: true
+    live_database:
+      enabled: true
+      resolve_database_and_table_from_documents: true
+      verify_table_and_columns_against_live_schema: true
+      auto_connect_with_saved_credentials: true
+      prompt_for_missing_password: true
+      generate_select_only: true
+      display_sql_before_execution: true
+      auto_execute_validated_select: true
+      never_invent_rows: true
+    selection:
+      use_connected_database_when_unambiguous: true
+      ask_user_to_choose_database_if_ambiguous: true
+      ask_user_to_choose_table_if_ambiguous: true
+      ask_user_if_document_vs_live_data_is_ambiguous: true
+      reject_unknown_table_or_database: true
+  query:
+    read_only: true
+    validate_sql_on_server: true
+    single_statement_only: true
+    max_export_rows: 50000
+    fetch_batch_size: 1000
+    timeout_seconds: 120
+    respect_database_permissions: true
+    block_destructive_operations: true
+    allow_filters_from_user: false
+    require_parameterized_filter_values: true
+  excel:
+    engine: openpyxl
+    include_headers: true
+    freeze_header_row: true
+    enable_auto_filter: true
+    use_excel_table_style: false
+    auto_size_columns: false
+    max_column_width: 50
+    sheet_name_template: '{table}'
+    split_oversized_sheets: true
+    prevent_formula_injection: true
+    preserve_dates_and_numbers: true
+    empty_result_behavior: headers_only
+  security:
+    never_include_credentials: true
+    never_export_password_columns: true
+    require_column_level_permissions: true
+    redact_sensitive_columns: true
+    restrict_output_to_directory: true
+    audit_report_generation: true
+    do_not_log_exported_rows: true
+  definition_mode: dynamic
+  require_predefined_report_template: false
+  auto_discover_tables_and_columns: true
+  support_new_databases_without_yaml_edits: true
+  source_priority:
+  - verified_live_database
+  - actual_tabular_data_in_document
+  no_fabricated_data: true
+  dynamic_report:
+    choose_database_from_discovered_catalog: true
+    choose_table_from_live_schema: true
+    infer_columns_from_user_request: false
+    validate_all_identifiers: true
+    derive_filters_from_user_request: false
+    parameterize_filter_values: true
+    allow_joins_only_if_relationships_verified: false
+    generate_read_only_sql: true
+    display_sql_and_auto_execute: true
+    export_actual_query_rows_to_xlsx: true
+    record_source_document_and_database: true
+    report_if_connection_metadata_missing: true
+plugins:
+  modules: []
+automation:
+  enabled: true
+  run_in_server_background: true
+  start_on_server_boot: true
+  jobs:
+    knowledge_sync:
+      enabled: true
+      interval_seconds: 3600
+      run_on_start: true
+    database_schema_scan:
+      enabled: true
+      interval_seconds: 3600
+      run_on_start: true
+    catalog_rebuild:
+      enabled: true
+      run_after:
+      - knowledge_sync
+      - database_schema_scan
+  prevent_overlapping_runs: true
+  run_one_instance_per_server: true
+  continue_on_individual_database_failure: true
+  persist_last_success_time: true
+  show_last_sync_in_desktop: true
+  allow_manual_refresh: true
+learning:
+  enabled: true
+  mode: continuous_retrieval_updates
+  approval_workflow: admin_review_required
+  allow_employee_feedback: true
+  auto_index_approved_corrections: true
+  do_not_learn_from_unreviewed_chat: true
+  model_weight_training: false
+  update_from_new_documents: true
+  update_from_verified_live_schema: true
+  store_verified_table_descriptions: true
+  learn_table_aliases_from_approved_feedback: false
+  feedback_review_required: true
+  never_learn_secrets: true
+  never_cache_live_query_rows_as_knowledge: true
+  invalidate_cached_answers_on_source_change: true
+  retain_document_and_schema_provenance: true
+  answer_with_sources_for_company_facts: true
+  record_unanswered_questions_without_sensitive_values: true
+  feedback_file: data/pending_knowledge_feedback.sqlite
+voice:
+  enabled: true
+  engine: faster_whisper
+  offline_only: true
+  model_path: models/faster-whisper-base
+  language: auto
+  sample_rate: 16000
+  max_record_seconds: 30
+  auto_send: true
+  compute_type: int8
+  cpu_threads: 4
+  beam_size: 3
+  store_recordings: false
+  send_audio_to_server: false
+  send_transcript_via_existing_chat: true
+agent:
+  enabled: true
+  planner: qwen3
+  max_plan_tokens: 220
+  max_tool_steps: 1
+  validate_tool_calls: true
+  fallback: legacy_safe_router
+  allow_arbitrary_sql: false
+  allow_shell_or_python_execution: false
+rag:
+  enabled: true
+  retrieval: lexical
+  semantic_weight: 0.6
+  embedding_model: models/embedding-model
+  cache_file: data/semantic_vectors.sqlite
+  minimum_semantic_similarity: 0.3
+  max_indexed_chunks: 5000
+  batch_size: 16
+  require_sources: true
+
+# ORION v2.7 / Changeset 1: classification suggestions only.
+# Qwen3 does NOT grant document access. Steps 2-4 add RBAC, approval and filtered RAG.
+document_classification:
+  enabled: true
+  engine: local_qwen3
+  registry_file: data/document_classifications.json
+  max_input_chars: 3500
+  max_documents_per_sync: 25
+  approval_required: true
+  automatic_permission_grants: false
+
+# ORION v2.7 / Changeset 2: server-side RBAC. No model-suggested roles are trusted.
+# Admin can review all indexed documents; everyone else sees only explicitly
+# granted documents whose SHA256 still matches the synchronized index.
+document_access:
+  enabled: true
+  registry_file: data/document_access.json
+  default_policy: deny
+  admin_can_review_all: true
+  invalidate_grants_on_document_change: true
+  classification_suggestions_grant_access: false

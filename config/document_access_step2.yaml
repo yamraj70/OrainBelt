@@ -1,0 +1,9 @@
+# Merge this section into your existing config/orion.yaml.
+# Do not overwrite database profiles or local model paths.
+document_access:
+  enabled: true
+  registry_file: data/document_access.json
+  default_policy: deny
+  admin_can_review_all: true
+  invalidate_grants_on_document_change: true
+  classification_suggestions_grant_access: false

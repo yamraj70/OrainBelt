@@ -1,0 +1,6 @@
+# Optional desktop microphone + offline transcription (install on CLIENT PC only).
+# Install with: python -m pip install -r requirements-voice.txt
+sounddevice>=0.5,<1
+numpy>=1.24,<3
+faster-whisper>=1.1,<2
+huggingface_hub>=0.24,<2

@@ -1,0 +1,403 @@
+# Database Schema Documentation
+ 
+**Database Name:** AgentDB
+**Generated On:** 2026-10-13
+**Engine:** Microsoft SQL Server
+ 
+---
+ 
+### ??? feedback
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `id` | `INT` | No | `*None*` | **PK**  | - |
+| `interaction_id` | `INT` | No | `*None*` | **FK**  | - |
+| `label` | `NVARCHAR(200)` | No | `*None*` | *None* | - |
+| `comment` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `created_at` | `NVARCHAR(200)` | No | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? interactions
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `id` | `INT` | No | `*None*` | **PK**  | - |
+| `question` | `NVARCHAR(MAX)` | No | `*None*` | *None* | - |
+| `answer` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `created_at` | `NVARCHAR(200)` | No | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? knowledge
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `id` | `INT` | No | `*None*` | **PK**  | - |
+| `topic` | `NVARCHAR(1000)` | No | `*None*` | *None* | - |
+| `fact` | `NVARCHAR(MAX)` | No | `*None*` | *None* | - |
+| `source_url` | `NVARCHAR(1800)` | Yes | `*None*` | *None* | - |
+| `created_at` | `NVARCHAR(200)` | No | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? sources
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `id` | `INT` | No | `*None*` | **PK**  | - |
+| `interaction_id` | `INT` | Yes | `*None*` | **FK**  | - |
+| `title` | `NVARCHAR(1000)` | Yes | `*None*` | *None* | - |
+| `url` | `NVARCHAR(1800)` | Yes | `*None*` | **UK**  | - |
+| `content` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `fetched_at` | `NVARCHAR(200)` | No | `*None*` | *None* | - |
+ 
+---
+ 
+
+Completion time: 2026-10-13T17:15:33.3714062+05:30
+# Database Schema Documentation
+ 
+**Database Name:** MFAssociate
+**Generated On:** 2026-10-13
+**Engine:** Microsoft SQL Server
+ 
+---
+ 
+### ??? AccountStatus
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `StatusId` | `INT` | No | `*None*` | **PK**  | - |
+| `StatusName` | `NVARCHAR(100)` | No | `*None*` | *None* | - |
+| `Description` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `IsActive` | `BIT` | No | `1` | *None* | - |
+ 
+---
+ 
+### ??? Agencies
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `AgencyId` | `INT` | No | `*None*` | **PK**  | - |
+| `AgencyName` | `NVARCHAR(300)` | No | `*None*` | *None* | - |
+| `ContactPerson` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `Email` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `Mobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `IsActive` | `BIT` | No | `1` | *None* | - |
+ 
+---
+ 
+### ??? CustomerAccountsGeneral
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `AccountId` | `INT` | No | `*None*` | **PK**  | - |
+| `AccountNumber` | `NVARCHAR(100)` | No | `*None*` | **UK**  | - |
+| `RrcNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CustomerName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FatherName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `AadhaarName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `Address` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `PrimaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `SecondaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `NewMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `FamilyMembers` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `LimitAmount` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `AccountBalance` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `NewIrac` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccruedInterest` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `WriteOffFlag` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `ClosureAmount` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `Tehsil` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage1` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage2` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage1` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage2` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `Rakba1` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Rakba2` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `TotalRakba` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CurrentStatusId` | `INT` | No | `1` | **FK**  | - |
+| `AgencyId` | `INT` | Yes | `*None*` | **FK**  | - |
+| `AssignedToUserId` | `INT` | Yes | `*None*` | **FK**  | - |
+| `CreatedBy` | `INT` | Yes | `*None*` | *None* | - |
+| `CreatedOn` | `DATETIME` | No | `getutcdate` | *None* | - |
+| `CreatedDate` | `DATETIME` | No | `getdate` | *None* | - |
+| `UpdatedBy` | `INT` | Yes | `*None*` | *None* | - |
+| `UpdatedOn` | `DATETIME` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? CustomerAccountsLand
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `AccountId` | `INT` | No | `*None*` | **PK** **FK**  | - |
+| `AccountNumber` | `NVARCHAR(100)` | No | `*None*` | **UK**  | - |
+| `RrcNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CustomerName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FatherName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `AadhaarName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `Address` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `PrimaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `SecondaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `NewMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `FamilyMembers` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `LimitAmount` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `AccountBalance` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `NewIrac` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccruedInterest` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `WriteOffFlag` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `ClosureAmount` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `Tehsil` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage1` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage2` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage1` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage2` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `Rakba1` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Rakba2` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `TotalRakba` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CurrentStatusId` | `INT` | No | `1` | **FK**  | - |
+| `AgencyId` | `INT` | Yes | `*None*` | **FK**  | - |
+| `AssignedToUserId` | `INT` | Yes | `*None*` | **FK**  | - |
+| `CreatedBy` | `INT` | Yes | `*None*` | *None* | - |
+| `CreatedOn` | `DATETIME` | No | `getutcdate` | *None* | - |
+| `CreatedDate` | `DATETIME` | No | `getdate` | *None* | - |
+| `UpdatedBy` | `INT` | Yes | `*None*` | *None* | - |
+| `UpdatedOn` | `DATETIME` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? CustomerAccountsVehicle
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `AccountId` | `INT` | No | `*None*` | **PK**  | - |
+| `AccountNumber` | `NVARCHAR(100)` | No | `*None*` | **UK**  | - |
+| `RrcNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CustomerName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FatherName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `AadhaarName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `Address` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `PrimaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `SecondaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `NewMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `FamilyMembers` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `LimitAmount` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `AccountBalance` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `NewIrac` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccruedInterest` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `WriteOffFlag` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `ClosureAmount` | `DECIMAL(18,2)` | Yes | `*None*` | *None* | - |
+| `Tehsil` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage1` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage2` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage1` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage2` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `Rakba1` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Rakba2` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `TotalRakba` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CurrentStatusId` | `INT` | No | `1` | **FK**  | - |
+| `AgencyId` | `INT` | Yes | `*None*` | **FK**  | - |
+| `AssignedToUserId` | `INT` | Yes | `*None*` | **FK**  | - |
+| `CreatedBy` | `INT` | Yes | `*None*` | *None* | - |
+| `CreatedOn` | `DATETIME` | No | `getutcdate` | *None* | - |
+| `CreatedDate` | `DATETIME` | No | `getdate` | *None* | - |
+| `UpdatedBy` | `INT` | Yes | `*None*` | *None* | - |
+| `UpdatedOn` | `DATETIME` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? Remarks 
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `Id` | `INT` | No | `*None*` | **PK**  | - |
+| `CustomerId` | `INT` | No | `*None*` | **FK**  | - |
+| `Remarks` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `UpdatedDate` | `DATETIME2` | Yes | `*None*` | *None* | - |
+| `StatusID` | `INT` | Yes | `*None*` | **FK**  | - |
+| `UserID` | `INT` | Yes | `*None*` | **FK**  | - |
+| `CloseRemarks` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? Resources
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `ResourceId` | `INT` | No | `*None*` | **PK**  | - |
+| `ResourceName` | `VARCHAR(100)` | No | `*None*` | *None* | - |
+| `ResourceType` | `VARCHAR(20)` | No | `*None*` | *None* | - |
+| `RoutePath` | `VARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Description` | `VARCHAR(255)` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? RolePermissions
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `RolePermissionId` | `INT` | No | `*None*` | **PK**  | - |
+| `RoleId` | `INT` | No | `*None*` | **FK** **UK**  | - |
+| `ResourceId` | `INT` | No | `*None*` | **FK** **UK**  | - |
+| `CanRead` | `BIT` | No | `0` | *None* | - |
+| `CanCreate` | `BIT` | No | `0` | *None* | - |
+| `CanUpdate` | `BIT` | No | `0` | *None* | - |
+| `CanDelete` | `BIT` | No | `0` | *None* | - |
+ 
+---
+ 
+### ??? Roles
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `RoleId` | `INT` | No | `*None*` | **PK**  | - |
+| `RoleName` | `VARCHAR(50)` | No | `*None*` | **UK**  | - |
+| `Description` | `VARCHAR(255)` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? Staging_CustomerAccountsGeneral
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `StagingId` | `BIGINT` | No | `*None*` | **PK**  | - |
+| `AccountNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `RrcNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CustomerName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FatherName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `Address` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `PrimaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `SecondaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `NewMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `LimitAmount` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccountBalance` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `NewIrac` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccruedInterest` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `WriteOffFlag` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `ClosureAmount` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AadhaarName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FamilyMembers` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Tehsil` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage1` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage2` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage1` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage2` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `Rakba1` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Rakba2` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `TotalRakba` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `UpdateDate` | `DATETIME` | Yes | `*None*` | *None* | - |
+| `IsProcessed` | `INT` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? Staging_CustomerAccountsLand
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `StagingId` | `BIGINT` | No | `*None*` | **PK**  | - |
+| `AccountNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `RrcNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CustomerName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FatherName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `Address` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `PrimaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `SecondaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `NewMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `LimitAmount` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccountBalance` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `NewIrac` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccruedInterest` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `WriteOffFlag` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `ClosureAmount` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AadhaarName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FamilyMembers` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Tehsil` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage1` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage2` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage1` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage2` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `Rakba1` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Rakba2` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `TotalRakba` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `UpdateDate` | `DATETIME` | Yes | `*None*` | *None* | - |
+| `IsProcessed` | `INT` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? Staging_CustomerAccountsVehicle
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `StagingId` | `BIGINT` | No | `*None*` | **PK**  | - |
+| `AccountNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `RrcNumber` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `CustomerName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FatherName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `Address` | `NVARCHAR(MAX)` | Yes | `*None*` | *None* | - |
+| `PrimaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `SecondaryMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `NewMobile` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `LimitAmount` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccountBalance` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `NewIrac` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AccruedInterest` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `WriteOffFlag` | `NVARCHAR(40)` | Yes | `*None*` | *None* | - |
+| `ClosureAmount` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `AadhaarName` | `NVARCHAR(300)` | Yes | `*None*` | *None* | - |
+| `FamilyMembers` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Tehsil` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage1` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `LandVillage2` | `NVARCHAR(200)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage1` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `KhasraNoVillage2` | `NVARCHAR(510)` | Yes | `*None*` | *None* | - |
+| `Rakba1` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `Rakba2` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `TotalRakba` | `NVARCHAR(100)` | Yes | `*None*` | *None* | - |
+| `UpdateDate` | `DATETIME` | Yes | `*None*` | *None* | - |
+| `IsProcessed` | `INT` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? UserRoles
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `UserRoleId` | `INT` | No | `*None*` | **PK**  | - |
+| `UserId` | `INT` | No | `*None*` | **FK** **UK**  | - |
+| `RoleId` | `INT` | No | `*None*` | **FK** **UK**  | - |
+| `AssignedDate` | `DATETIME` | Yes | `getdate` | *None* | - |
+ 
+---
+ 
+### ??? Users
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `UserId` | `INT` | No | `*None*` | **PK**  | - |
+| `Username` | `VARCHAR(50)` | No | `*None*` | **UK**  | - |
+| `PasswordHash` | `VARCHAR(255)` | No | `*None*` | *None* | - |
+| `FirstName` | `VARCHAR(50)` | No | `*None*` | *None* | - |
+| `LastName` | `VARCHAR(50)` | No | `*None*` | *None* | - |
+| `Email` | `VARCHAR(100)` | No | `*None*` | **UK**  | - |
+| `IsActive` | `BIT` | No | `1` | *None* | - |
+| `UserStatusId` | `INT` | No | `2` | **FK**  | - |
+| `LastLoginDate` | `DATETIME` | Yes | `*None*` | *None* | - |
+| `CreatedAt` | `DATETIME` | Yes | `getdate` | *None* | - |
+| `IsOnline` | `BIT` | No | `0` | *None* | - |
+| `LastActiveTime` | `DATETIME` | Yes | `*None*` | *None* | - |
+ 
+---
+ 
+### ??? UserStatus
+ 
+| Column | Type | Nullable | Default | Constraints | Description |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `StatusId` | `INT` | No | `*None*` | **PK**  | - |
+| `StatusName` | `VARCHAR(20)` | No | `*None*` | *None* | - |
+ 
+---
+ 
+
+Completion time: 2026-10-13T18:26:18.8341360+05:30

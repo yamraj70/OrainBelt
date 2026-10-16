@@ -1,0 +1,7 @@
+# Merge these keys into the existing document_access section in config/orion.yaml.
+# Keep the Step 2 registry_file and default_policy settings unchanged.
+document_access:
+  enabled: true
+  approval_required: true
+  default_policy: deny
+  classification_suggestions_grant_access: false

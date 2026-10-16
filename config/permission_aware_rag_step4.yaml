@@ -1,0 +1,12 @@
+# Changeset 4: merge into existing config/orion.yaml; keep existing DB profiles.
+# Access checks are mandatory on the server, independent of these flags.
+document_access:
+  enabled: true
+  default_policy: deny
+  approval_required: true
+  invalidate_grants_on_document_change: true
+  classification_suggestions_grant_access: false
+rag:
+  enabled: true
+  retrieval: lexical  # Optional: hybrid after installing a local embedding model
+  require_sources: true
