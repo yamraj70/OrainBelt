@@ -19,11 +19,7 @@ A **database-focused**, local-first enterprise assistant rebuilt using the three
 
 Requires **Python 3.11 64-bit**. Extract into a new folder; do not overwrite the old project.
 
-```powershell
-cd D:\path\to\ORION_Database_Enterprise_v2
-.\scripts\INSTALL_WINDOWS.bat
-.\.venv\Scripts\python.exe -m orion_db.cli create-user admin --role admin
-```
+
 
 Choose a password of at least 10 characters. No default user or password is included. Then run in separate terminals:
 
